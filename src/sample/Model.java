@@ -53,16 +53,19 @@ public class Model {
         ((Particle)particles.toArray()[1]).position = new Vector2d(199,100);
         ((Particle)particles.toArray()[0]).velocity = new Vector2d(1,0);
         ((Particle)particles.toArray()[1]).velocity = new Vector2d(-1, 0);
-
         new Thread(()->{
-            while(true) {
-                try {
-                    Thread.sleep(30);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            long begin = System.nanoTime();
+            int iterations = 0;
+            while(System.nanoTime()< begin + 10000000000L) {
+//                try {
+//                    Thread.sleep(30);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 update();
+                iterations++;
             }
+            System.out.println(iterations);
         }).start();
     }
     void update(){
@@ -92,12 +95,12 @@ public class Model {
                     if (p2 == particle) {
                         continue;
                     }
-                    Vector2d temp = particle.position.sub(((Particle) p2).position);
-                    float len = temp.length();
-                    if (len < 1) {
-                        continue;
-                    }
-                    temp = temp.scale(1 / temp.length() / temp.length() / particleMass);
+                    //Vector2d temp = particle.position.sub(((Particle) p2).position);
+                    //float len = temp.length();
+//                    if (len < 1) {
+//                        continue;
+//                    }
+                    //temp = temp.scale(1 / temp.length() / temp.length() / particleMass);
                     //acceleration = acceleration.add(temp);
                     particle.bounce((Particle) p2);
                 }
@@ -133,6 +136,6 @@ public class Model {
                 particle.position.y = resY-10;
             }
         }
-        propertyChangeSupport.firePropertyChange("particles", 0,1);
+        //propertyChangeSupport.firePropertyChange("particles", 0,1);
     }
 }

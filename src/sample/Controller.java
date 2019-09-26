@@ -17,26 +17,17 @@ public class Controller implements Initializable {
 
     private GraphicsContext gc ;
     Model model;
+    ShapesModel smodel;
     View view;
-    @FXML private void drawCanvas(ActionEvent event) {
-        System.out.println(event);
-        view.drawCanvas();
-    }
-    @FXML private void drawParticles(ActionEvent event) {
-        System.out.println(event);
-        view.drawParticles();
-    }
-
+    ShapesView sview;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gc = img.getGraphicsContext2D();
-        model = new Model();
-        view = new View(model, gc);
-        model.addPropertyChangeListener(view);
-        gc.setFill(Color.BLACK);
-        System.out.println("color set to black");
-        gc.fillRect(50, 50, 100, 100);
-        System.out.println("draw rectangle");
+        //model = new Model();
+        smodel = new ShapesModel();
+        //view = new View(model, gc);
+        sview = new ShapesView(smodel, gc);
+        //model.addPropertyChangeListener(view);
     }
 
 }
